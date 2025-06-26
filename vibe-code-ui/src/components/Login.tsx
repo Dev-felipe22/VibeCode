@@ -8,7 +8,11 @@ interface LoginForm {
   password: string;
 }
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [form, setForm] = useState<LoginForm>({ email: "", password: "" });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +22,7 @@ const Login: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.table(form);
-    alert("Fake login — check console");
+    onLogin();
   };
 
   return (

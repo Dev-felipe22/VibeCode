@@ -5,13 +5,26 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 function App() {
+  const [ isLoggedIn, setIsLoggedIn ] = React.useState(false);
+
   return (
     <BrowserRouter>
-        <div style={{ paddingTop: "48px" }}>
-          <TaskBar />
+        <div className={isLoggedIn ? "app-content" : ""}
+        style={{
+          backgroundColor: isLoggedIn ? "white" : "#f3f4f6",
+          minHeight: "100vh",
+          paddingTop: isLoggedIn ? "48px" : "0px",
+        }}>
+          {isLoggedIn && <TaskBar/>}
+          
           <Routes>
-            <Route path="/" element={<Login />} />
-            {/* <Route path="/register" element={<Register />} /> */}
+            {!isLoggedIn ? (
+              <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+            ) : (
+              <>
+              <Route path="/" element={<div style={{ textAlign: "center" }}><h1>Hello World</h1></div>} />
+              </>
+            )}
           </Routes>
         </div>
     </BrowserRouter>
