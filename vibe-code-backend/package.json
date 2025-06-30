@@ -4,7 +4,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.17.0",
-    "mongoose": "^8.16.0"
+    "mongoose": "^8.16.1",
+    "node-fetch": "^2.7.0"
   },
   "name": "database",
   "version": "1.0.0",
