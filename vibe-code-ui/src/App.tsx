@@ -3,6 +3,9 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import CodeEditor from "./components/CodeEditor";
+import { Code } from "lucide-react";
+import CodePage from "./components/CodePage";
 
 function App() {
   const [ isLoggedIn, setIsLoggedIn ] = React.useState(false);
@@ -22,7 +25,8 @@ function App() {
               <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
             ) : (
               <>
-              <Route path="/" element={<div style={{ textAlign: "center" }}><h1>Hello World</h1></div>} />
+              {/* <Route path="/" element={<div style={{ textAlign: "center" }}><h1>Hello World</h1></div>} /> */}
+                <Route path="/" element={<CodePage />} />
               </>
             )}
           </Routes>
