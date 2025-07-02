@@ -49,3 +49,85 @@ body {
   background-color: #22c55e;
   color: white;
 }
+
+.editor-wrapper {
+  width: 50vw;
+  height: 50vh;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 2rem auto;
+  font-family: 'Fira Code', monospace;
+  display: flex;
+  flex-direction: column;
+  position: relative; 
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #f9f9fb;
+}
+
+.edittor-tab {
+  font-weight: 600;
+  color: #6b21a8;
+}
+
+.editor-toolbar span {
+  margin-left: 10px;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.editor-textarea{
+  flex-grow: 1;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: 'Fira Code',monospace;
+  resize:none;
+  background-color: #f3f4f6;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.editor-footer {
+  font-size: 0.75rem;
+  color: #888;
+  padding: 0 12px 6px;
+}
+
+.code-page-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;        /* 👈 remove this if it exists */
+  box-sizing: border-box;
+}
+
+
+.problem-panel {
+  width: 50%;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-right: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.code-panel {
+  width: 50%;
+  padding: 0; /* 👈 remove top padding */
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafb;
+}
+
