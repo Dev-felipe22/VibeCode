@@ -12,20 +12,25 @@ function App() {
 
   return (
     <BrowserRouter>
-        <div className={isLoggedIn ? "app-content" : ""}
-        style={{
-          backgroundColor: isLoggedIn ? "white" : "#f3f4f6",
-          minHeight: "100vh",
-          paddingTop: isLoggedIn ? "48px" : "0px",
-        }}>
+        <div
+          className={isLoggedIn ? "app-content" : ""}
+          style={{
+            backgroundColor: isLoggedIn ? "white" : "#f3f4f6",
+            color: isLoggedIn ? "#1a1a1a" : "", // ✅ Add this line
+            minHeight: "100vh",
+            paddingTop: isLoggedIn ? "48px" : "0px",
+          }}
+        >
           {isLoggedIn && <TaskBar/>}
           
-          <Routes>
+          <Routes> 
             {!isLoggedIn ? (
-              <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+              <>
+                <Route path="/register" element={<Register />} />
+                <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+              </>
             ) : (
               <>
-              {/* <Route path="/" element={<div style={{ textAlign: "center" }}><h1>Hello World</h1></div>} /> */}
                 <Route path="/" element={<CodePage />} />
               </>
             )}
