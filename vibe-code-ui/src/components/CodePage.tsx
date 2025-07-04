@@ -1,5 +1,6 @@
 import React from "react";
 import CodeEditor from "./CodeEditor";
+import TestCasePanel from "./TestCasePanel";
 
 const CodePage: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ Output: [0,1]`}
       </div>
       <div className="code-panel">
         <CodeEditor />
+        <TestCasePanel />
 
       </div>
     </div>

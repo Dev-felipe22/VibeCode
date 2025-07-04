@@ -159,3 +159,67 @@ body {
   color: #4f46e5;
   margin-bottom: 1rem;
 }
+
+
+.test-panel {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+}
+
+.case-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.case-tab, .add-tab {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.case-tab.active {
+  background: #7c3aed;
+  color: white;
+  border-color: #7c3aed;
+}
+
+.test-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.test-fields label {
+  font-size: 14px;
+  color: #333;
+}
+
+.test-fields input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.run-button {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.run-button:hover {
+  background-color: #6d28d9;
+}
