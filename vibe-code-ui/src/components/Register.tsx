@@ -27,10 +27,10 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="page-container">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-5 rounded-2xl bg-white p-8 shadow"
+        className="form-box"
       >
         <h1 className="text-2xl font-semibold text-center text-indigo-600">
           Create your account
@@ -82,9 +82,9 @@ const Register: React.FC = () => {
           Register
         </button>
 
-        <p className="text-center text-sm">
+        <p className="text-sm">
           Already have an account?{' '}
-          <a href="#" className="text-indigo-600 hover:underline">
+          <a href="/" className="link-button">
             Log in
           </a>
         </p>

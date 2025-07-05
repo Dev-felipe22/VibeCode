@@ -5,7 +5,7 @@ const CodePage: React.FC = () => {
   return (
     <div className="code-page-container">
       <div className="problem-panel">
-        {/* <h2>1. Two Sum</h2>
+        <h2>1. Two Sum</h2>
         <p>
           Given an array of integers <code>nums</code> and an integer{" "}
           <code>target</code>, return <em>indices of the two numbers</em> such
@@ -20,11 +20,11 @@ const CodePage: React.FC = () => {
         <pre>
 {`Input: nums = [2,7,11,15], target = 9
 Output: [0,1]`}
-        </pre> */}
+        </pre>
       </div>
       <div className="code-panel">
         <CodeEditor />
-        {/* future: Test input / Run buttons / Output */}
+
       </div>
     </div>
   );
