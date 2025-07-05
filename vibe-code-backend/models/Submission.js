@@ -15,21 +15,18 @@ const submissionSchema = new mongoose.Schema({
     runtime: Number,
     memory: Number,
     passed: Boolean,
-    results: Array,
   },
   bestRuntime: {
     runtime: Number,
     memory: Number,
     code: String,
     language: String,
-    results: Array,
   },
   bestMemory: {
-    memory: Number,
     runtime: Number,
+	memory: Number,
     code: String,
     language: String,
-    results: Array,
   }
 }, {
   timestamps: true
