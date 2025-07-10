@@ -59,15 +59,12 @@ export default function TaskBar() {
 
         {/* Center */}
         <div className="taskbar-center">
-          <Settings size={20} />
           <Play size={20} />
           <button className="submit">Submit</button>
-          <ClipboardList size={20} />
         </div>
 
         {/* Right */}
         <div className="taskbar-right">
-          <UserCircle size={24} />
         </div>
       </div>
     </div>

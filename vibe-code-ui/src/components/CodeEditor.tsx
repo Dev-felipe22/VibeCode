@@ -8,10 +8,6 @@ const CodeEditor: React.FC = () => {
                 <span className="editor-tab">&lt;/&gt; Code</span>
                 <div className="editor-toolbar">
                     <span>Python ▼</span>
-                    <span>Auto</span>
-                    <span>🔁</span>
-                    <span>↻</span>
-                    <span>⤢</span>
                 </div>
             </div>
             <textarea
