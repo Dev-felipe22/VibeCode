@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import CodeEditor from "./CodeEditor";
 import TestCasePanel from "./TestCasePanel";
+import { useParams } from "react-router-dom";
 
 interface Example {
   input: string;
@@ -14,15 +15,17 @@ interface Problem {
 }
 
 const CodePage: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
   const [problem, setProblem] = useState<Problem | null>(null);
 
   useEffect(() => { 
-    fetch("http://localhost:3000/api/problems/two-sum")
+    const currentSlug = slug || "two-sum";
+    fetch(`http://localhost:3000/api/problems/${currentSlug}`)
     .then(res => res.json())
     .then(data => setProblem(data))
     .catch(err => console.error("Failed to load problem: ", err));
   
-  }, []);
+  }, [slug]);
 
   if (!problem) return <div>Loading...</div>;
   return (

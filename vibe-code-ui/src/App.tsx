@@ -1,6 +1,6 @@
 import TaskBar from "./components/TaskBar";
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import CodeEditor from "./components/CodeEditor";
@@ -28,10 +28,13 @@ function App() {
               <>
                 <Route path="/register" element={<Register />} />
                 <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+
               </>
             ) : (
               <>
-                <Route path="/" element={<CodePage />} />
+                {/* <Route path="/" element={<CodePage />} /> */}
+                <Route path="/problem/:slug" element={<CodePage />} />
+                <Route path="*" element={<Navigate to="/problem/two-sum" />} />
               </>
             )}
           </Routes>
