@@ -1,31 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../styles.css"; // make sure styles are hooked
 
+interface TestCase {
+  input: string;
+  expectedOutput: string;
+}
+
+
 const TestCasePanel: React.FC = () => {
+  
+  const { slug } = useParams<{ slug: string }>();
   const [selectedCase, setSelectedCase] = useState(0);
-  const [testCases, setTestCases] = useState([
-    { nums: "[2,7,11,15]", target: "9" },
-    { nums: "", target: "" },
-    { nums: "", target: "" },
-  ]);
+  const [testCases, setTestCases] = useState<TestCase[]>([]);
 
-  const handleInputChange = (index: number, field: "nums" | "target", value: string) => {
-    const updated = [...testCases];
-    updated[index][field] = value;
-    setTestCases(updated);
-  };
+  useEffect(() => {
+    const currentSlug = slug || "two-sum";
+    fetch(`http://localhost:3000/api/problems/${currentSlug}`)
+      .then((res) => res.json())
+      .then((data) => setTestCases(data.testCases || []))
+      .catch((err) => console.error("Failed to load test cases: ", err));
+  }, [slug]);
 
+  if (testCases.length === 0) {
+    return <div className="test-panel">Loading...</div>;
+  }
   return (
     <div className="test-panel">
       {/* Case Tabs */}
       <div className="case-tabs">
-        {["Case 1", "Case 2", "Case 3"].map((label, index) => (
+        {testCases.map((_, index) => (
           <button
             key={index}
             className={`case-tab ${selectedCase === index ? "active" : ""}`}
             onClick={() => setSelectedCase(index)}
           >
-            {label}
+            {`Case ${index + 1}`}
           </button>
         ))}
         <button className="add-tab">+</button>
@@ -33,18 +43,18 @@ const TestCasePanel: React.FC = () => {
 
       {/* Input Fields */}
       <div className="test-fields">
-        <label>nums =</label>
+        <label>Input</label>
         <input
           type="text"
-          value={testCases[selectedCase].nums}
-          onChange={(e) => handleInputChange(selectedCase, "nums", e.target.value)}
+          value={testCases[selectedCase]?.input || ""}
+          readOnly
         />
 
-        <label>target =</label>
+        <label>Expected Output</label>
         <input
           type="text"
-          value={testCases[selectedCase].target}
-          onChange={(e) => handleInputChange(selectedCase, "target", e.target.value)}
+          value={testCases[selectedCase]?.expectedOutput || ""}
+          readOnly
         />
       </div>
 
