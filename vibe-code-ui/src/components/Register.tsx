@@ -1,5 +1,9 @@
+// File: src/components/Register.tsx
 import React, { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { useNavigate, Link } from "react-router-dom";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface RegisterForm {
   username: string;
@@ -8,33 +12,60 @@ interface RegisterForm {
   confirm: string;
 }
 
-const Register: React.FC = () => {
+export default function Register() {
   const [form, setForm] = useState<RegisterForm>({
-    username: '',
-    email: '',
-    password: '',
-    confirm: '',
+    username: "",
+    email: "",
+    password: "",
+    confirm: "",
   });
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.table(form); // demo only
-    alert('Form logged in console (fake submit)');
+    console.table(form);              // kept from stub for quick debug
+    setError(null);
+
+    if (form.password !== form.confirm) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json();
+        throw new Error(body.error || "Registration failed");
+      }
+
+      navigate("/login");           // redirect to login on success
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   return (
     <div className="page-container">
-      <form
-        onSubmit={handleSubmit}
-        className="form-box"
-      >
+      <form onSubmit={handleSubmit} className="form-box">
         <h1 className="text-2xl font-semibold text-center text-indigo-600">
           Create your account
         </h1>
+
+        {error && <div className="text-red-600 mb-2">{error}</div>}
 
         <input
           name="username"
@@ -82,15 +113,13 @@ const Register: React.FC = () => {
           Register
         </button>
 
-        <p className="text-sm">
-          Already have an account?{' '}
-          <a href="/" className="link-button">
+        <p className="text-sm mt-4">
+          Already have an account?{" "}
+          <Link to="/login" className="link-button">
             Log in
-          </a>
+          </Link>
         </p>
       </form>
     </div>
   );
-};
-
-export default Register;
+}

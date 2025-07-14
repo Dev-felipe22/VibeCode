@@ -1,47 +1,42 @@
-import TaskBar from "./components/TaskBar";
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import CodeEditor from "./components/CodeEditor";
-import { Code } from "lucide-react";
-import CodePage from "./components/CodePage";
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import TaskBar from './components/TaskBar'
+import Login from './components/Login'
+import Register from './components/Register'
+import CodePage from './components/CodePage'
+import { useAuth } from './context/AuthContext'
 
-function App() {
-  const [ isLoggedIn, setIsLoggedIn ] = React.useState(false);
+export default function App() {
+  const { token } = useAuth()
 
   return (
     <BrowserRouter>
-        <div
-          className={isLoggedIn ? "app-content" : ""}
-          style={{
-            backgroundColor: isLoggedIn ? "white" : "#f3f4f6",
-            color: isLoggedIn ? "#1a1a1a" : "", // ✅ Add this line
-            minHeight: "100vh",
-            paddingTop: isLoggedIn ? "48px" : "0px",
-          }}
-        >
-          {isLoggedIn && <TaskBar/>}
-          
-          <Routes> 
-            {!isLoggedIn ? (
-              <>
-                <Route path="/register" element={<Register />} />
-                <Route path="*" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+      <div
+        className={token ? 'app-content' : ''}
+        style={{
+          backgroundColor: token ? 'white' : '#f3f4f6',
+          color: token ? '#1a1a1a' : '',
+          minHeight: '100vh',
+          paddingTop: token ? '48px' : '0px',
+        }}
+      >
+        {token && <TaskBar />}
 
-              </>
-            ) : (
-              <>
-                {/* <Route path="/" element={<CodePage />} /> */}
-                <Route path="/problem/:slug" element={<CodePage />} />
-                <Route path="*" element={<Navigate to="/problem/two-sum" />} />
-              </>
-            )}
-          </Routes>
-        </div>
+        <Routes>
+          {!token ? (
+            <>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login"    element={<Login />} />
+              <Route path="*"         element={<Navigate to="/login" replace />} />
+            </>
+          ) : (
+            <>
+              <Route path="/problem/:slug" element={<CodePage />} />
+              <Route path="*"               element={<Navigate to="/problem/two-sum" replace />} />
+            </>
+          )}
+        </Routes>
+      </div>
     </BrowserRouter>
-
-  );
+  )
 }
-
-export default App;
