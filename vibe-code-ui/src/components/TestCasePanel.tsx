@@ -38,7 +38,7 @@ const TestCasePanel: React.FC = () => {
             {`Case ${index + 1}`}
           </button>
         ))}
-        <button className="add-tab">+</button>
+
       </div>
 
       {/* Input Fields */}
