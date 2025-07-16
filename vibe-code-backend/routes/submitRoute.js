@@ -1,3 +1,4 @@
+// submitRoute.js
 import express from 'express';
 import dotenv from 'dotenv';
 import Problem from '../models/Problem.js';
@@ -34,11 +35,15 @@ router.post('/', async (req, res) => {
     }
     const testCases = problem.testCases || [];
 
+    // Concatenate user code + driver code (user code first)
+    const driver = (problem.driverCode && problem.driverCode[language]) || '';
+    const fullSource = driver ? `${code}\n\n${driver}` : code;
+
     const results = [];
     for (const tc of testCases) {
       const payload = {
         language_id: getLanguageId(language),
-        source_code: code,
+        source_code: fullSource,
         stdin: tc.input,
       };
 

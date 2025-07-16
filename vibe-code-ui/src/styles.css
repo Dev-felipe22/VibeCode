@@ -110,7 +110,7 @@ body {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  padding: 0;        /* 👈 remove this if it exists */
+  padding: 0;        /* remove this if it exists */
   box-sizing: border-box;
 }
 
@@ -125,7 +125,7 @@ body {
 
 .code-panel {
   width: 50%;
-  padding: 0; /* 👈 remove top padding */
+  padding: 0; /* remove top padding */
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
@@ -222,4 +222,16 @@ body {
 
 .run-button:hover {
   background-color: #6d28d9;
+}
+.hints-toggle {
+  background: none;
+  border: none;
+  color: #2b6cb0;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.hints-toggle:hover {
+  text-decoration: underline;
 }

@@ -27,6 +27,8 @@ interface Problem {
   title: string;
   description: string;
   examples: Example[];
+  constraints: string[];
+  hints: string[];
   testCases: TestCase[];
   starterCode: StarterCode;
 }
@@ -60,15 +62,11 @@ const CodePage: React.FC<CodePageProps> = ({
   const { slug } = useParams<{ slug: string }>();
   const [problem, setProblem] = useState<Problem | null>(null);
   const [code, setCode] = useState<string>("");
-  const [submitResult, setSubmitResult] = useState<SubmitResponse | null>(
-    null
-  );
+  const [submitResult, setSubmitResult] = useState<SubmitResponse | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
-
-  // which tab is active?
   const [activeTab, setActiveTab] = useState<"cases" | "results">("cases");
+  const [showHints, setShowHints] = useState<boolean>(false);
 
-  // reset to test cases when loading a new problem slug
   useEffect(() => {
     setActiveTab("cases");
   }, [slug]);
@@ -91,8 +89,8 @@ const CodePage: React.FC<CodePageProps> = ({
   }, [slug]);
 
   const handleSubmit = useCallback(async () => {
-	console.log("handleSubmit() called");
-    if (!problem) return;
+    console.log("handleSubmit() called");
+	if (!problem) return;
     setSubmitting(true);
     registerSubmittingState(true);
     setSubmitResult(null);
@@ -118,9 +116,8 @@ const CodePage: React.FC<CodePageProps> = ({
     }
   }, [problem, code, registerSubmittingState]);
 
-  // register the submit handler once
   useEffect(() => {
-    registerSubmitFn(handleSubmit);
+    registerSubmitFn(() => handleSubmit);
   }, [handleSubmit, registerSubmitFn]);
 
   if (!problem) {
@@ -132,6 +129,18 @@ const CodePage: React.FC<CodePageProps> = ({
       <div className="problem-panel">
         <h1>{problem.title}</h1>
         <p>{problem.description}</p>
+
+        {problem.constraints?.length > 0 && (
+          <>
+            <h2>Constraints</h2>
+            <ul>
+              {problem.constraints.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
         <h2>Examples</h2>
         {problem.examples.map((eg, idx) => (
           <div key={idx} className="example">
@@ -144,6 +153,24 @@ const CodePage: React.FC<CodePageProps> = ({
             </p>
           </div>
         ))}
+
+        {problem.hints?.length > 0 && (
+          <div className="hints-section">
+            <button
+              className="hints-toggle"
+              onClick={() => setShowHints((prev) => !prev)}
+            >
+              {showHints ? "Hide Hints ▲" : "Show Hints ▼"}
+            </button>
+            {showHints && (
+              <ul>
+                {problem.hints.map((h, i) => (
+                  <li key={i}>{h}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="code-panel">
@@ -165,7 +192,7 @@ const CodePage: React.FC<CodePageProps> = ({
           </button>
         </div>
 
-        {activeTab === "cases" && <TestCasePanel />}
+        {activeTab === "cases" && <TestCasePanel onRun={handleSubmit} />}
 
         {activeTab === "results" && submitResult && (
           <ResultsPanel result={submitResult} />
