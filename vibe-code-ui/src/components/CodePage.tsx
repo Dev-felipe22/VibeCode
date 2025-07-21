@@ -76,7 +76,7 @@ const CodePage: React.FC<CodePageProps> = ({
       const currentSlug = slug || "two-sum";
       try {
         const res = await fetch(
-          `http://localhost:3000/api/problems/${currentSlug}`
+          `${import.meta.env.VITE_API_URL}/api/problems/${currentSlug}`
         );
         const data: Problem = await res.json();
         setProblem(data);
@@ -96,7 +96,7 @@ const CodePage: React.FC<CodePageProps> = ({
     setSubmitResult(null);
 
     try {
-      const res = await fetch("http://localhost:3000/api/submit", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -19,7 +19,7 @@ const TestCasePanel: React.FC<TestCasePanelProps> = ({ onRun }) => {
 
   useEffect(() => {
     const currentSlug = slug || "two-sum";
-    fetch(`http://localhost:3000/api/problems/${currentSlug}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/problems/${currentSlug}`)
       .then((res) => res.json())
       .then((data) => setTestCases(data.testCases || []))
       .catch((err) => console.error("Failed to load test cases:", err));

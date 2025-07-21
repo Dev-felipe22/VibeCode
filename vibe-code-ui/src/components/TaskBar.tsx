@@ -31,7 +31,7 @@ export default function TaskBar({ onSubmit, submitting }: TaskBarProps) {
   const [problemSlugs, setProblemSlugs] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/problems")
+    fetch(`${import.meta.env.VITE_API_URL}/api/problems`)
       .then((res) => res.json())
       .then((data) => setProblemSlugs(data.map((p: { slug: string }) => p.slug)))
       .catch((err) => console.error("Failed to fetch problem slugs", err));
